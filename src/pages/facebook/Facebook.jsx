@@ -7,10 +7,102 @@ import { IoIosArrowDown } from "react-icons/io";
 
 
 import { MdGroups, MdOutlineOndemandVideo  } from "react-icons/md";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewFacebookData, deleteFacebookData, editFacebookData, getAllFacebookData } from '../../redux/facebook/action';
+import { Button, Modal, ModalBody, ModalHeader } from 'react-bootstrap';
+import { FaTimes } from "react-icons/fa";
+
+
 
 
 
 const Facebook = () => {
+
+    const dispatch = useDispatch()
+
+
+ 
+
+    const {facebooks} = useSelector((state) => state.facebook)
+
+
+
+    // input filds value manage for use state
+    const [input, setInput] = useState({
+        name : "",
+        content : "",
+        photo : ""
+    })
+
+    const [edit, setEdit] = useState(false)
+
+    // input filds change handware
+    const handleInputChange = (e) => {
+        setInput((prevstate) => ({
+            ...prevstate,
+            [e.target.name] : e.target.value
+        }))
+    }
+
+    // post modal state manage
+    const [modal, setModal] = useState(false)
+
+    // modal handware 
+    const showModal = () => {
+        setModal(true)
+    }
+
+    const hideModal = () => {
+        setModal(false)
+        setEdit(false)
+        setInput({
+            name : "",
+            content : "",
+             photo : ""
+        })
+    }
+
+
+    // handleFacebookDataCreate
+    const handleFacebookDataCreate = () => {
+
+        dispatch(createNewFacebookData(input))
+
+        setInput({
+            name : "",
+            content : "",
+             photo : ""
+        })
+        
+        hideModal()
+    }
+
+
+    const handleFbUserDelete = (id) => {
+        console.log(id);
+       dispatch(deleteFacebookData(id))
+    }
+
+
+   
+    const handleEditFacebookUser = (item) => {
+        showModal()
+        setInput(item)
+        setEdit(true)
+    }
+
+    const handleFacebookUpdate = () => {
+        dispatch(editFacebookData(input))
+        hideModal()
+    }
+
+
+    useEffect(() => {
+        dispatch(getAllFacebookData())
+    },[])
+
+
   return (
 
     <>
@@ -240,10 +332,10 @@ const Facebook = () => {
                             <a href="">
                                 <div className="story_list shadow-sm">
                                     <div className="roteted_img ">
-                                        <img className="" src="https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg" alt=""/>
+                                        <img className="" src="https://i.pinimg.com/736x/6e/be/82/6ebe825ade5d3c803ccf0300ca7792ec.jpg" alt=""/>
                                     </div>
                                     <div className="img">
-                                        <img src="https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?cs=srgb&dl=pexels-moose-photos-1036622.jpg&fm=jpg" alt=""/>
+                                        <img src="https://i.pinimg.com/736x/6e/be/82/6ebe825ade5d3c803ccf0300ca7792ec.jpg" alt=""/>
                                     </div>
                                     <div className="content">
                                         <p>Fariya</p>
@@ -255,10 +347,10 @@ const Facebook = () => {
                             <a href="">
                                 <div className="story_list shadow-sm">
                                     <div className="roteted_img ">
-                                        <img className="" src="https://media.istockphoto.com/id/1386217759/photo/portrait-of-a-confident-young-businesswoman-standing-against-an-urban-background.jpg?s=612x612&w=0&k=20&c=fAzBj4UAksz3wwAjXxKxByZMqDSuqQZSTij7jBiPtJc=" alt=""/>
+                                        <img className="" src="https://pbs.twimg.com/media/D0yjwjGU0AE1yVr.jpg:large" alt=""/>
                                     </div>
                                     <div className="img">
-                                        <img src="https://media.istockphoto.com/id/1386217759/photo/portrait-of-a-confident-young-businesswoman-standing-against-an-urban-background.jpg?s=612x612&w=0&k=20&c=fAzBj4UAksz3wwAjXxKxByZMqDSuqQZSTij7jBiPtJc=" alt=""/>
+                                        <img src="https://pbs.twimg.com/media/D0yjwjGU0AE1yVr.jpg:large" alt=""/>
                                     </div>
                                     <div className="content">
                                         <p>Kaya Payel</p>
@@ -270,10 +362,10 @@ const Facebook = () => {
                             <a href="">
                                 <div className="story_list shadow-sm">
                                     <div className="roteted_img ">
-                                        <img className="" src="https://media.istockphoto.com/id/831902124/photo/here-to-do-what-needs-to-be-done.jpg?s=612x612&w=0&k=20&c=NG10vK8TI312ei-CbXrmLrX9el7Dk7hjIilSjVS08UU=" alt=""/>
+                                        <img className="" src="https://i.pinimg.com/736x/9f/c2/30/9fc2309f8915f771eb5515c315d5abb8.jpg" alt=""/>
                                     </div>
                                     <div className="img">
-                                        <img src="https://media.istockphoto.com/id/831902124/photo/here-to-do-what-needs-to-be-done.jpg?s=612x612&w=0&k=20&c=NG10vK8TI312ei-CbXrmLrX9el7Dk7hjIilSjVS08UU=" alt=""/>
+                                        <img src="https://i.pinimg.com/736x/9f/c2/30/9fc2309f8915f771eb5515c315d5abb8.jpg" alt=""/>
                                     </div>
                                     <div className="content">
                                         <p>Tasniya Farin</p>
@@ -304,7 +396,7 @@ const Facebook = () => {
                             <div className="card-body">
                                 <div className="user_post_header">
                                     <img className="img_style" src="https://scontent.fdac24-4.fna.fbcdn.net/v/t39.30808-6/369056401_821458899641538_2174608844576823947_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHKwPX_CbvsHpyYXT9nXfQYC5D_3XRPrtMLkP_ddE-u01P6kjV9lSVBZABpsUg4l7BRQO9MGGVlGnoq3jb1bbXN&_nc_ohc=C32Co0_E9b0AX82uUz4&_nc_ht=scontent.fdac24-4.fna&oh=00_AfD9w7MdZWGv8eoILfJZrr-XW-JTW0TQknNTrFuWuwhuqg&oe=65C251FD" alt=""/>
-                                    <div className="post">
+                                    <div onClick={showModal} className="post">
                                         <span>Whats on your mind, Md?</span>
                                     </div>
                                 </div> <div className="user_post_divaider"></div>
@@ -334,21 +426,24 @@ const Facebook = () => {
                         </div>
                        </div>
 
-                       <div className="post_ariya">
+                       {facebooks?.length === 0 ? 'facebook Data not found' : facebooks?.map((item, index) => {
+                        return  <div className="post_ariya" key={index}>
                         <div className="card">
                            <div className="post">
                             <div className="post_header">
                                 <div className="post_header_left">
-                                    <img className="img_style" src="https://scontent.fdac24-4.fna.fbcdn.net/v/t39.30808-6/369056401_821458899641538_2174608844576823947_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHKwPX_CbvsHpyYXT9nXfQYC5D_3XRPrtMLkP_ddE-u01P6kjV9lSVBZABpsUg4l7BRQO9MGGVlGnoq3jb1bbXN&_nc_ohc=C32Co0_E9b0AX82uUz4&_nc_ht=scontent.fdac24-4.fna&oh=00_AfD9w7MdZWGv8eoILfJZrr-XW-JTW0TQknNTrFuWuwhuqg&oe=65C251FD" alt=""/>
+                                    <img className="img_style" src={item.photo} alt=""/>
                                    <div className="header_content">
-                                    <span>Md Akash</span>
+                                    <span>{item.name}</span>
                                     <p>about 4 hour ago</p>
                                    </div>
                                 </div>
                                 <div className="post_header_right">
                                     <div className="icons">
                                         <i className="fa-solid fa-ellipsis"></i>
-                                        <i className="fa-solid fa-xmark"></i>
+                                        <i onClick={() => handleEditFacebookUser(item)} className="fa-solid fa-pen-to-square"></i>
+                                        <i onClick={() => handleFbUserDelete(item.id)} className="fa-solid fa-xmark"></i>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -356,12 +451,11 @@ const Facebook = () => {
                             <div className="post_body">
 
                                 <div className="post_body_content">
-                                    <p>যার অনুভূতি একবার হৃদয় ছুয়ে যায়
-                                        তাকে ভুলে থাকা সত্যিই খুব কঠিন</p>
+                                    <p>{item.content}</p>
                                 </div>
 
                                 <div className="post_img">
-                                    <img src="https://scontent.fdac24-3.fna.fbcdn.net/v/t39.30808-6/423193696_122095852718207325_7233734475067773179_n.jpg?stp=dst-jpg_s640x640&_nc_cat=1&ccb=1-7&_nc_sid=c42490&_nc_eui2=AeFa2-8RgwwIipIlrQdB3iJYNEKb2QRHfqQ0QpvZBEd-pAs8pCoXgcvHByS5onlj2TWwnUKJO5rDcUbQRaGVFbVw&_nc_ohc=SnrkBpD_eFYAX_N-K_N&_nc_ht=scontent.fdac24-3.fna&oh=00_AfBod9twUrQSTOHaHKytWL15oHjm1P3uMI7Gh4MDzN5YWg&oe=65C29C85" alt=""/>
+                                    <img src={item.photo} alt=""/>
                                 </div>
                                 
                                 <div className="post_divaider"></div>
@@ -400,7 +494,7 @@ const Facebook = () => {
                                 <div className="coment_view_ariya">
                                     <p>View more comments</p>
                                     <div className="user_comment">
-                                        <img className="img_style" src="https://scontent.fdac24-4.fna.fbcdn.net/v/t39.30808-6/369056401_821458899641538_2174608844576823947_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeHKwPX_CbvsHpyYXT9nXfQYC5D_3XRPrtMLkP_ddE-u01P6kjV9lSVBZABpsUg4l7BRQO9MGGVlGnoq3jb1bbXN&_nc_ohc=C32Co0_E9b0AX82uUz4&_nc_ht=scontent.fdac24-4.fna&oh=00_AfD9w7MdZWGv8eoILfJZrr-XW-JTW0TQknNTrFuWuwhuqg&oe=65C251FD" alt=""/>
+                                        <img className="img_style" src={item.photo} alt=""/>
                                         <div className="user_content">
                                             <span>Md Akash</span>
                                             <p>Hey Hello😍</p>
@@ -426,6 +520,9 @@ const Facebook = () => {
                            </div>
                         </div>
                        </div>
+                       })}
+
+                      
 
                     </div>
                     <div className="col-md-4 fb_body_right">
@@ -541,7 +638,35 @@ const Facebook = () => {
 
     </div>
     
+   <Modal show={modal} centered onHide={hideModal}>
+     <ModalHeader>
+        <h4>Create New Post</h4>
+        <i onClick={hideModal}>< FaTimes/></i>
 
+     </ModalHeader>
+     <ModalBody>
+        <form action="">
+            <div className="my-3">
+                <label htmlFor="">Name</label>
+                <input type="text" className='form-control' name='name' value={input.name} onChange={handleInputChange} />
+            </div>
+           
+            <div className="my-3">
+                <label htmlFor="">Content</label>
+                <textarea type="text" className='form-control' name='content' value={input.content} onChange={handleInputChange} />
+            </div>
+            <div className="my-3">
+                <label htmlFor="">Photo</label>
+                <input type="text" className='form-control' name='photo' value={input.photo} onChange={handleInputChange} />
+            </div>
+            <div className="my-3">
+                {edit ? <Button onClick={handleFacebookUpdate}  className='btn btn-primary'>Update</Button> :    <Button onClick={handleFacebookDataCreate} className='btn btn-primary'>Create now</Button> }
+            
+                
+            </div>
+        </form>
+     </ModalBody>
+   </Modal>
     
     </>
     

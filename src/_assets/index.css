@@ -207,6 +207,7 @@ a{
 .story_ariya ul{}
 .story_ariya ul li{
     display: inline-block;
+    margin-right: 5px;
 }
 .story_ariya ul li a{}
 .story_ariya ul li a .story_list{
@@ -317,6 +318,7 @@ a{
 }
 .user_post_ariya .user_post_body ul li a span{
     color: #050505;
+    font-size: 16px;
 }
 
 

@@ -1,5 +1,5 @@
 const inicialState = {
-    facebook : [],
+    facebooks : [],
     loding : false,
     message : null,
     error : null
